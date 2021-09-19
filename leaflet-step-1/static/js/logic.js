@@ -64,3 +64,30 @@ d3.json(url, function(data){
 
     newMarker = L.layer
 }});
+
+var legend = L.control({position: 'bottomright'});
+
+
+legend.onAdd = function (){
+    var div = L.DomUtil.create('div', 'info legend');
+    var grades = ['-10-10', '10-30', '30-50', '50-70', '70-90', '90+'];
+    var colors = [
+        'rgb(19, 235, 45)',
+        'rgb(138, 206, 0)',
+        'rgb(186, 174, 0)',
+        'rgb(218, 136, 0)',
+        'rgb(237, 91, 0)',
+        'rgb(242, 24, 31)'
+        ];
+    var labels = [];
+    // loop through our density intervals and generate a label with a colored square for each interval
+    grades.forEach(function(grade, index){
+        labels.push("<div class = 'row'><li style=\"background-color: " + colors[index] +  "; width: 20px"+ "; height: 15px" + "\"></li>" + "<li>" + grade + "</li></div>");
+    })
+  
+    div.innerHTML += "<ul>" + labels.join("") +"</ul>";
+    return div;
+
+};
+
+legend.addTo(myMap);
