@@ -11,12 +11,14 @@ var myMap = L.map("mapid", {
   });
   
   // Add a tile layer 
-  L.tileLayer("https://api.mapbox.com/v4/{id}/page.html?access_token={accessToken}", {
-    attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
-    maxZoom: 15,
-    id: "mapbox.mapbox-streets-v8",
+  L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong>',
+    tileSize: 512,
+    maxZoom: 18,
+    zoomOffset: -1,
+    id: 'mapbox/light-v10',
     accessToken: API_KEY
-  }).addTo(myMap);
+}).addTo(myMap);
 
 // D3 retrieval
 d3.json(url, function(data){
@@ -51,6 +53,8 @@ d3.json(url, function(data){
         // Variables for your popup
         var loc = data.features[i].properties.place
         var mag = data.features[i].properties.mag
+        // console.log(mag)
+
 
         // Create and add circles for each earthquake report 
         L.circle(coordinates, {
@@ -72,12 +76,12 @@ legend.onAdd = function (){
     var div = L.DomUtil.create('div', 'info legend');
     var grades = ['-10-10', '10-30', '30-50', '50-70', '70-90', '90+'];
     var colors = [
-        'rgb(19, 235, 45)',
-        'rgb(138, 206, 0)',
-        'rgb(186, 174, 0)',
-        'rgb(218, 136, 0)',
-        'rgb(237, 91, 0)',
-        'rgb(242, 24, 31)'
+        '#13eb2d',
+        '#8ace00',
+        '#baae00',
+        '#da8800',
+        '#ed5b00',
+        '#f2181f'
         ];
     var labels = [];
     // loop through our density intervals and generate a label with a colored square for each interval
